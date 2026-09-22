@@ -1,6 +1,11 @@
-# douyin-cos-publisher-skill
+# Douyin COS Workflow Skills
 
-一个面向 Codex 的抖音 COS 图文发布 Skill。它把素材盘点、角色分组、文案与 Tag 生成、客户端填充、用户确认、发布后验收、合集核验和原图归档串成一条可追踪的工作流。
+一套面向 Codex 的抖音 COS 图文工作流，包含两个可独立安装、也可协同使用的 Skill：
+
+- `cos-douyin-wanxiang`：负责角色判断、照片气质分析、自然文案、5 个 Tag 候选和可搜索配乐。
+- `douyin-cos-publisher`：负责素材分组、发布方案、客户端填充、用户确认、发布后验收、合集核验和原图归档。
+
+组合使用时，文案 Skill 负责“发什么”，发布 Skill 负责“如何可靠地发出去并证明已经成功”。
 
 它重点解决这些容易出错的环节：
 
@@ -47,10 +52,11 @@
 
 ## 安装
 
-将 `douyin-cos-publisher` 目录复制到 Codex Skills 目录：
+将两个 Skill 目录复制到 Codex Skills 目录：
 
 ```bash
 cp -R douyin-cos-publisher ~/.codex/skills/
+cp -R cos-douyin-wanxiang ~/.codex/skills/
 ```
 
 安装后可这样调用：
@@ -61,9 +67,15 @@ cp -R douyin-cos-publisher ~/.codex/skills/
 
 使用前请编辑 `douyin-cos-publisher/references/account.md`，配置目标账号、素材目录、归档目录和账号中的真实合集名称。
 
+只需要生成文案时，可以单独调用：
+
+```text
+使用 $cos-douyin-wanxiang 为这组 COS 照片生成抖音文案、5 个 Tag 和配乐。
+```
+
 ## 文案协作
 
-如果本机安装了 `cos-douyin-wanxiang`，本 Skill 会优先用它生成或复核文案、Tag 候选和配乐；发布 Skill 仍负责话题实体化、确认、发布和事后验收。没有安装时，也可以直接使用本 Skill 的基础文案规则。
+两个 Skill 同时安装时，`douyin-cos-publisher` 会优先用 `cos-douyin-wanxiang` 生成或复核文案、Tag 候选和配乐；发布 Skill 仍负责话题实体化、确认、发布和事后验收。只安装发布 Skill 时，也可以使用其基础文案规则。
 
 ## 素材盘点脚本
 
@@ -79,6 +91,10 @@ python3 douyin-cos-publisher/scripts/prepare_media.py \
 ## 仓库结构
 
 ```text
+cos-douyin-wanxiang/
+├── SKILL.md
+└── references/proven-patterns.md
+
 douyin-cos-publisher/
 ├── SKILL.md
 ├── agents/openai.yaml
