@@ -1,0 +1,6 @@
+interface:
+  display_name: "抖音 COS 发布助手"
+  short_description: "自动识别 COS 素材，生成文案标签配乐并发布归类"
+  default_prompt: "使用 $douyin-cos-publisher 分析待发布素材，生成发布方案并在我确认后发布到抖音。"
+policy:
+  allow_implicit_invocation: true
